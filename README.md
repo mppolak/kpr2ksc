@@ -11,6 +11,6 @@ First you have to make the installation file executable with command:
 
 chmod +x install.sh
 
-Then just execute install.sk. It will create the main kpr2ksc script and other necessary files. After that you can execute the "kpr2ksc" script with -h flag to see how to use it
+Then just execute install.sh. It will create the main kpr2ksc script and other necessary files. After that you can execute the "kpr2ksc" script with -h flag to see how to use it
 
 If the scripts runs for longer than 2-3 seconds, terminate immediately
