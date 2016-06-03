@@ -17,7 +17,7 @@ multy=$(echo $2 | awk -F':' '{print $2}')
 multz=$(echo $2 | awk -F':' '{print $3}')
 PRIM_PATH=$1
 
-cat $PRIM_PATH | cut -c 11- | head -n -1 | awk -v mx=$multx -v my=$multy -v mz=$multz '{a=$1*mx/$4; b=$2*my/$4; c=$3*mz/$4; while(sqrt(a*a)>0.5) {if(a>0) {a=a-1} else {a=a+1}} while(sqrt(b*b)>0.5) {if(b>0) {b=b-1} else {b=b+1}} while(sqrt(c*c)>0.5) {if(c>0) {c=c-1} else {c=c+1}}; printf("%10f %10f %10f\n",a,b,c)}' > red_path_all
+cat $PRIM_PATH | cut -c 11- | sed \$d | awk -v mx=$multx -v my=$multy -v mz=$multz '{a=$1*mx/$4; b=$2*my/$4; c=$3*mz/$4; while(sqrt(a*a)>0.5) {if(a>0) {a=a-1} else {a=a+1}} while(sqrt(b*b)>0.5) {if(b>0) {b=b-1} else {b=b+1}} while(sqrt(c*c)>0.5) {if(c>0) {c=c-1} else {c=c+1}}; printf("%10f %10f %10f\n",a,b,c)}' > red_path_all
 
 awk '!a[$0]++' red_path_all > red_path
 
