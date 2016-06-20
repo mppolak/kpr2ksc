@@ -28,10 +28,10 @@ cat frac_path | awk -F'[/ ]' '{print $2" "$4" "$6}' > denom_path
 
 lines=$(wc -l denom_path | awk '{print $1}')
 
-sed -i "1 i\\$lines" denom_path
+sed -i '' "1 i\\$lines" denom_path
 
 cat denom_path | ./3frac2num > common_path
-sed -i '1d' denom_path
+sed -i '' '1d' denom_path
 paste denom_path common_path > denom_common
 paste numer_path denom_common > num_den_com
 rm frac_path numer_path denom_path common_path denom_common red_path_all red_path
