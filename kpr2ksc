@@ -75,7 +75,7 @@ then
   exit 2
 fi
 
-if [ grep " 0    0    0" ${PRIM_PATH}.f2b | wc -l -gt 2 ]
+if [ grep " 0    0    0" $(${PRIM_PATH}.f2b | wc -l) -gt 2 ]
 then
   echo
   echo "Something went wrong but I was unable to detect your mistake"
@@ -102,7 +102,7 @@ else
 fi
 mv ${PRIM_PATH}.f2b $PRIM_PATH
 
-sed -i'' '1 s/$/    Klist file generated for fold2bloch by k2prksc/' $PRIM_PATH
+sed -i'' '1 s/$/    Klist file generated for fold2bloch by kpr2ksc/' $PRIM_PATH
 
 echo
 echo "############################################################
