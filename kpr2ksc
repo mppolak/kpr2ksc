@@ -6,13 +6,13 @@ then
   echo "Usage: $(echo $(pwd))/`basename $0` [name of klist_band file] [multiplicity in X:Y:Z format]"
   echo "Example: $(echo $(pwd))/`basename $0` GaAs.klist_band 3:2:5"
   echo
-  echo "After execution, your klist file will be renamed with *_backup"
+  echo "After execution, your klist file will be renamed with *_orig"
   echo "and the modified klist_file will replace your initial file"
   echo
   exit 0
 fi
 
-if [ ! -f $1 ]
+if [ ! -e $1 ]
 then
   echo
   echo "You must put the *.klist_band file name correctly"
@@ -34,13 +34,16 @@ then
   exit 0
 fi
 
+script_dir=`realpath -s $0`
+script_dir=`dirname $script_dir`
+
 PRIM_PATH=$1
 
 cat $PRIM_PATH | cut -c 11- | sed \$d | awk -v mx=$multx -v my=$multy -v mz=$multz '{a=$1*mx/$4; b=$2*my/$4; c=$3*mz/$4; while(sqrt(a*a)>0.5) {if(a>0) {a=a-1} else {a=a+1}} while(sqrt(b*b)>0.5) {if(b>0) {b=b-1} else {b=b+1}} while(sqrt(c*c)>0.5) {if(c>0) {c=c-1} else {c=c+1}}; printf("%10f %10f %10f\n",a,b,c)}' > red_path_all
 
 awk '!a[$0]++' red_path_all > red_path
 
-./3dec2frac < red_path | awk '{print $1" "$2" "$3}' > frac_path
+${script_dir}/3dec2frac < red_path | awk '{print $1" "$2" "$3}' > frac_path
 
 cat frac_path | awk -F'[/ ]' '{print $1" "$3" "$5}' > numer_path
 cat frac_path | awk -F'[/ ]' '{print $2" "$4" "$6}' > denom_path
@@ -49,7 +52,7 @@ lines=$(wc -l denom_path | awk '{print $1}')
 
 sed -i'' "1 i\\$lines" denom_path
 
-cat denom_path | ./3frac2num > common_path
+cat denom_path | ${script_dir}/3frac2num > common_path
 sed -i'' '1d' denom_path
 paste denom_path common_path > denom_common
 paste numer_path denom_common > num_den_com
@@ -57,13 +60,29 @@ rm frac_path numer_path denom_path common_path denom_common red_path_all red_pat
 
 cat num_den_com | awk '{printf("%15d%5d%5d%5d%5.1f\n",$1*$7/$4,$2*$7/$5,$3*$7/$6,$7,2.0)}' > $PRIM_PATH".f2b"
 printf "END" >> ${PRIM_PATH}.f2b
-mv $PRIM_PATH ${PRIM_PATH}_backup
+
+if [ -e ${PRIM_PATH}_orig ]
+then
+  bck=0
+  numbck=1
+  while [ $bck -eq 0 ]
+  do
+    if [ ! -e ${PRIM_PATH}_backup${numbck} ]
+    then
+      mv $PRIM_PATH ${PRIM_PATH}_backup${numbck}
+      bck=1
+    fi
+    let numbck=${numbck}+1
+  done
+else
+  mv $PRIM_PATH ${PRIM_PATH}_orig
+fi
 mv ${PRIM_PATH}.f2b $PRIM_PATH
 
 rm num_den_com
 
 echo "############################################################
-#####               KPR2KSC version 0.0.1              #####
+#####        KPR2KSC version 0.0.2 (28 Jun 2016)       #####
 #####                                                  #####
 ##### Primitive cell klist_band to SUPERCELL converter #####
 #####                                                  #####
