@@ -15,6 +15,9 @@ fi
 if [ ! -e $1 ]
 then
   echo
+  echo "I cannot find the specified file:"
+  echo "$(pwd)/$1"
+  echo
   echo "You must put the *.klist_band file name correctly"
   echo "and make sure that the file exists"
   echo
@@ -81,6 +84,7 @@ mv ${PRIM_PATH}.f2b $PRIM_PATH
 
 rm num_den_com
 
+echo
 echo "############################################################
 #####        KPR2KSC version 0.0.2 (28 Jun 2016)       #####
 #####                                                  #####
@@ -89,3 +93,4 @@ echo "############################################################
 #####    Not guaranteed that will work all the time    #####
 ##### Brought to you by Maciej P. Polak copyright 2016 #####
 ############################################################"
+echo
