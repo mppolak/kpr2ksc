@@ -37,9 +37,9 @@ then
   exit 1
 fi
 
-  echo
-  echo "If the script runs for more than 2-3 seconds terminate (ctrl+c) immediately!"
-  echo
+#echo
+#echo "If the script runs for more than 2-3 seconds terminate (ctrl+c) immediately!"
+#echo
 
 script_dir=`realpath -s $0`
 script_dir=`dirname $script_dir`
