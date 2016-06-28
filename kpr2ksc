@@ -110,7 +110,9 @@ echo "############################################################
 #####                                                  #####
 ##### Primitive cell klist_band to SUPERCELL converter #####
 #####                                                  #####
-#####    Not guaranteed that will work all the time    #####
-##### Brought to you by Maciej P. Polak copyright 2016 #####
+##### Prepared to work with fold2bloch by M. P. Polak  #####
+##### under guidance of prof. Oleg Rubel               #####
+#####                                                  #####
+#####        Not guaranteed to work all the time       #####
 ############################################################"
 echo
