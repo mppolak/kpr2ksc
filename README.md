@@ -1,5 +1,5 @@
 ############################################################
-#####               KPR2KSC version 0.0.1              #####
+#####        KPR2KSC version 0.0.2 (28 Jun 2016)       #####
 #####                                                  #####
 ##### Primitive cell klist_band to SUPERCELL converter #####
 #####                                                  #####
