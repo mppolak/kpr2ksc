@@ -102,7 +102,7 @@ else
 fi
 mv ${PRIM_PATH}.f2b $PRIM_PATH
 
-sed -i'' '1 s/$/    Klist file generated for fold2bloch by kpr2ksc/' $PRIM_PATH
+sed -i'' "1 s/$/    Klist file generated for fold2bloch by kpr2ksc with $2 folds/" $PRIM_PATH
 
 echo
 echo "############################################################
